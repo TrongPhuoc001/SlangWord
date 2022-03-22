@@ -8,6 +8,9 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Scanner;
+
+import models.SlangWord;
 
 public class SlangWordService {
     private HashMap<String, String> listSlang;
@@ -26,7 +29,6 @@ public class SlangWordService {
                 if (value[0].lastIndexOf(" ") == value[0].length() - 1) {
                     value[0] = value[0].substring(0, value[0].length() - 2);
                 }
-                String[] value1 = value[1].split("\\|");
                 listSlang.put(value[0], value[1]);
             }
             bufferedReader.close();
@@ -53,6 +55,84 @@ public class SlangWordService {
             }
         }
         return result.size()>0?result:null;
+    }
+
+    public String getRandomSlang(){
+        int random = (int) (Math.random() * listSlang.size());
+        return listSlang.keySet().toArray()[random] + ":" + listSlang.get(listSlang.keySet().toArray()[random]);
+    }
+
+    public void quizWithSlangWord(int numberOfQuestion){
+        int correct = 0;
+        Scanner scanner = new Scanner(System.in);
+        for(int i = 0; i < numberOfQuestion; i++){
+            System.out.println("Question "+(i+1));
+            String randomSlang = getRandomSlang();
+            SlangWord slangWord = new SlangWord(randomSlang);
+            System.out.println(slangWord.getWord());
+            String value = slangWord.getDefinition();
+            String[] answerList = new String[4];
+            for(int j=0;j<4;j++){
+                answerList[j] = getRandomSlang().split(":")[1];
+            }
+            int random = (int) (Math.random() * 4); 
+            answerList[random] = value;
+            for(int j=0;j<4;j++){
+                System.out.println(j+1+". "+answerList[j]);
+            }
+            System.out.print("Your answer: ");
+            int answer;
+            try {
+                answer = scanner.nextInt()-1;
+            } catch (Error e) {
+                System.out.println("Invalid choice");
+                answer = -1;
+            }
+            if(answer==random){
+                System.out.println("Correct!");
+                correct++;
+            }
+            else{
+                System.out.println("Wrong! Answer: " + value + 1);
+            }
+        }
+        System.out.println("You got "+correct+"/"+numberOfQuestion);
+    }
+
+    public void quizWithSlangDefinition(int numberOfQuestion) {
+        int correct = 0;
+        Scanner scanner = new Scanner(System.in);
+        for (int i = 0; i < numberOfQuestion; i++) {
+            System.out.println("Question " + (i + 1));
+            String randomSlang = getRandomSlang();
+            SlangWord slangWord = new SlangWord(randomSlang);
+            System.out.println(slangWord.getDefinition());
+            String value = slangWord.getWord();
+            String[] answerList = new String[4];
+            for (int j = 0; j < 4; j++) {
+                answerList[j] = getRandomSlang().split(":")[0];
+            }
+            int random = (int) (Math.random() * 4);
+            answerList[random] = value;
+            for (int j = 0; j < 4; j++) {
+                System.out.println(j + 1 + ". " + answerList[j]);
+            }
+            System.out.print("Your answer: ");
+            int answer;
+            try {
+                answer = scanner.nextInt() - 1;
+            } catch (Error e) {
+                System.out.println("Invalid choice");
+                answer = -1;
+            }
+            if (answer == random) {
+                System.out.println("Correct!");
+                correct++;
+            } else {
+                System.out.println("Wrong! Answer: " + value+1);
+            }
+        }
+        System.out.println("You got " + correct + "/" + numberOfQuestion);
     }
     
 }

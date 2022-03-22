@@ -55,10 +55,18 @@ public class ConsoleApp {
                 case 7:
                     break;
                 case 8:
+                    String randomSlang = slangWordService.getRandomSlang();
+                    System.out.println("Random slang: "+randomSlang);
                     break;
                 case 9:
+                    System.out.print("Enter number of question: ");
+                    int numberOfQuestion = scanner.nextInt();
+                    slangWordService.quizWithSlangWord(numberOfQuestion);
                     break;
                 case 10:
+                    System.out.print("Enter number of question: ");
+                    int numberOfQuestion1 = scanner.nextInt();
+                    slangWordService.quizWithSlangDefinition(numberOfQuestion1);
                     break;
             }
         }while(choice!=0);
