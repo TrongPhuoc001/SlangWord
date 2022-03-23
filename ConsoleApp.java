@@ -25,7 +25,7 @@ public class ConsoleApp {
                 case 1:
                     System.out.print("Enter word: ");
                     String word = scanner.next();
-                    String slang = slangWordService.findSlangByWord(word);
+                    List<String> slang = slangWordService.findSlangByWord(word);
                     if(slang == null){
                         System.out.println("Not found");
                     }
@@ -35,16 +35,18 @@ public class ConsoleApp {
                     break;
                 case 2:
                     System.out.print("Enter definition: ");
-                    String def = scanner.next();
+                    scanner.nextLine();
+                    String def = scanner.nextLine();
                     List<String> wordList = slangWordService.findSlangByDef(def);
                     if(wordList == null){
                         System.out.println("Not found");
                     }
                     else{
-                        System.out.println("Word: "+ wordList);
+                        System.out.println("Word: "+ String.join("\n",wordList));
                     }
                     break;
                 case 3:
+                    System.out.println(slangWordService.showSearchHistory());
                     break;
                 case 4:
                     break;
