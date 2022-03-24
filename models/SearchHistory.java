@@ -1,9 +1,13 @@
 package models;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SearchHistory {
+public class SearchHistory implements Serializable{
     private String searchWord;
     private List<String> searchResult;
     private String searchTime;
@@ -58,4 +62,22 @@ public class SearchHistory {
         return res+"\n"+"Search result: " + String.join("; ", this.searchResult) + "\n";
     }
 
+    private void writeObject(ObjectOutputStream oos)
+            throws IOException {
+        oos.defaultWriteObject();
+        oos.writeObject(searchWord);
+        oos.writeObject(searchResult);
+        oos.writeObject(searchTime);
+        oos.writeObject(searchType);
+    }
+
+    private void readObject(ObjectInputStream ois)
+            throws ClassNotFoundException, IOException {
+        ois.defaultReadObject();
+        this.searchWord = (String) ois.readObject();
+        this.searchResult = (List<String>) ois.readObject();
+        this.searchTime = (String) ois.readObject();
+        this.searchType = (int) ois.readObject();
+        
+    }
 }

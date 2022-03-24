@@ -24,5 +24,9 @@ public class SlangWord {
     public String getDefinition() {
         return definition;
     }
+
+    public String toFileLine(){
+        return word+"`"+definition;
+    }
     
 }

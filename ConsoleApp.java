@@ -9,7 +9,7 @@ public class ConsoleApp {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        SlangWordService slangWordService = new SlangWordService("data/slang.txt");
+        SlangWordService slangWordService = new SlangWordService();
         int choice;
         do{
             showMenu();
@@ -49,12 +49,28 @@ public class ConsoleApp {
                     System.out.println(slangWordService.showSearchHistory());
                     break;
                 case 4:
+                    System.out.println("Enter word: ");
+                    String wordNew = scanner.next();
+                    scanner.nextLine();
+                    System.out.println("Enter definition: ");
+                    String defNew = scanner.nextLine();
+                    slangWordService.addSlangWord(wordNew.toUpperCase(), defNew);
                     break;
                 case 5:
+                    System.out.println("Enter word: ");
+                    String wordEdit = scanner.next();
+                    scanner.nextLine();
+                    System.out.println("Enter definition: ");
+                    String defEdit = scanner.nextLine();
+                    slangWordService.editSlangWord(wordEdit.toUpperCase(), defEdit);
                     break;
                 case 6:
+                    System.out.println("Enter word: ");
+                    String wordDelete = scanner.next();
+                    slangWordService.deleteSlangWord(wordDelete.toUpperCase());
                     break;
                 case 7:
+                    slangWordService.reset();
                     break;
                 case 8:
                     String randomSlang = slangWordService.getRandomSlang();
