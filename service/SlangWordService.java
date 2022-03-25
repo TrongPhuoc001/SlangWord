@@ -149,7 +149,7 @@ public class SlangWordService {
     }
 
     public void editSlangWord(String word, String def) {
-        if (!listSlang.containsKey(word.toUpperCase())) {
+        if (listSlang.get(word.toUpperCase()) == null) {
             System.out.println("Slang word not found, do you want to create new one? (y/n): ");
             String choice = scanner.next();
             if (choice.equals("y")) {
@@ -236,7 +236,7 @@ public class SlangWordService {
                 System.out.println("Correct!");
                 correct++;
             } else {
-                System.out.println("Wrong! Answer: " + value + 1);
+                System.out.println("Wrong! Answer: " + value );
             }
         }
         System.out.println("You got " + correct + "/" + numberOfQuestion);
@@ -271,7 +271,7 @@ public class SlangWordService {
                 System.out.println("Correct!");
                 correct++;
             } else {
-                System.out.println("Wrong! Answer: " + value + 1);
+                System.out.println("Wrong! Answer: " + value);
             }
         }
         System.out.println("You got " + correct + "/" + numberOfQuestion);
