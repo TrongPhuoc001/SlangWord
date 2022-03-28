@@ -181,11 +181,20 @@ public class SlangWordService {
         
     }
 
+    // tham khảo
     private void saveListSlang(){
         try {
             ByteArrayOutputStream byteOut = new ByteArrayOutputStream();
             ObjectOutputStream out = new ObjectOutputStream(byteOut);
             out.writeObject(listSlang);
+            File currentFile = new File(currentFileUrl);
+            if(!currentFile.exists()){
+                File dataFile = new File("data");
+                if(!dataFile.exists()){
+                    dataFile.mkdir();
+                }
+                currentFile.createNewFile();
+            }
             FileOutputStream fileOutputStream = new FileOutputStream(currentFileUrl);
             fileOutputStream.write(byteOut.toByteArray());
             fileOutputStream.close();
@@ -277,6 +286,7 @@ public class SlangWordService {
         System.out.println("You got " + correct + "/" + numberOfQuestion);
     }
 
+    //tham khảo
     private void saveSearchHistory() {
         try {
             File historyFile = new File(historyFileUrl);
